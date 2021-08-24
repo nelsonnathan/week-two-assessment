@@ -11,3 +11,5 @@ function bubbleSort(array) {
     return array
 }
 
+bubbleSort(numbers)
+console.log(numbers)

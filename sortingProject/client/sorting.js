@@ -1,55 +1,52 @@
-function addBarChart(event){
-    event.preventDefault()
+function createBars() {
     let barArr = []
-    let bar
+    let barContainer = document.querySelector(".barContainer")
 
-    let divClass = document.getElementById("indBars")
+    for (let i = 1; i <= 100; i++) {
+        let barWidth = Math.floor(Math.random() * 1500) + 10
+        barArr.push(barWidth)
 
-    for (let i = 1; i < 101; i++) {
-        barArr.push(Math.floor(Math.random() * 1500) + 10)
+        let bar = document.createElement("div")
+
+        bar.classList.add("bars")
+        bar.style.width = `${barWidth}px`
+
+        barContainer.appendChild(bar)
     }
-
-    for (let i = 0; i < barArr.length; i++) {
-        bar = document.createElement("div")
-        bar.classList.add("curBar")
-        bar.style.width = `${barArr[i]}px`
-        divClass.appendChild(bar)
-    }
-
-    document.body.appendChild(divClass)
-
 }
 
-function bubbleSort() {
+function deleteBars() {
+    document.querySelectorAll(".bars").forEach( (node) => {
+        node.remove()
+    })
+}
 
-    function swapElements(fElement, sElement) {
-        let sOne = window.getComputedStyle(fElement)
-        let sTwo = window.getComputedStyle(sElement)
-    
-        let tOne = sOne.getPropertyValue("width")
-        let tTwo = sTwo.getPropertyValue("width")
-    
-        sOne.style.width = tTwo
-        sTwo.style.width = tOne
-    }
-    console.log('wtf')
-    function bubble(array) {
-        for (let i = 0; i < array.length - 1; i++) {
-            for (let j = 0; j < array.length - 1 - i; j++){
-                if (array[j] > array[j + 1]) {
-                    swapElements(array[j], array[j + 1])
-                    // [array[j], array[j + 1]] = [array[j + 1], array[j]]
-                }
+async function bubbleSort(barsArray) {
+    for (let i = 0; i < barsArray.length - 1; i++) {
+        for (let j = 0; j < barsArray.length - 1 - i; j++){
+
+            if (barsArray[j].style.width > barsArray[j + 1].style.width) {
+                [barsArray[j].style.width, barsArray[j + 1].style.width] = [barsArray[j + 1].style.width, barsArray[j].style.width]
             }
+            await new Promise(resolve => setTimeout(resolve, delay))
         }
-        // return array
+        await new Promise(resolve => setTimeout(resolve, delay))
     }
-    return bubble(document.getElementById("curBar"))
+
+    return barsArray
 }
 
+let delay = 5
 
+let newChartBtn = document.getElementById("newArr")
 
-// addBarChart()
+let bubbleSortBtn = document.getElementById("bubbleSort")
 
-document.getElementById("newArr").addEventListener("click", addBarChart)
-document.getElementById("sort").addEventListener("click", bubbleSort)
+newChartBtn.addEventListener("click", () => {
+    deleteBars()
+    createBars()
+})
+bubbleSortBtn.addEventListener("click", () => {
+    let barsArray = document.querySelectorAll(".bars")
+    bubbleSort(barsArray)
+})

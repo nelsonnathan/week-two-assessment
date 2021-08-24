@@ -1,0 +1,26 @@
+body {
+    background-color: darkslategrey;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+body div {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: blue;
+    height: 5vh;
+    width: 20vw;
+    font-size: large;
+}
+
+.curBar {
+    background-color: darkgrey;
+    height: 6px;
+    margin: 3px;
+}
